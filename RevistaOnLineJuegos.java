@@ -48,8 +48,9 @@ public class RevistaOnLineJuegos
     public void add(Juego juego) {
         String nombreJuego = juego.getTitulo();
         if(existeJuego(nombreJuego)== -1 && !estaCompleta()){
+
             if(total != 0){
-                if(juegos[total].getTitulo().compareTo(nombreJuego) <0){
+                if(juegos[total].getTitulo().compareToIgnoreCase(nombreJuego) < 0){
                     total++;
                     juegos[total] = juego;
                 }
@@ -71,13 +72,16 @@ public class RevistaOnLineJuegos
      * Si existe el juego devuelve su posición, si no existe devuelve -1
      */
     public int existeJuego(String titulo) {
-        for(int i = 0; i < juegos.length;i++){
-            if(juegos[i].getTitulo().indexOf(titulo) != -1){
-                return juegos[i].getTitulo().indexOf(titulo);
-            } 
+        for(int i = 0; i <= total;i++){
+            String tit = juegos[i].getTitulo().toUpperCase();
+            String tit1 = titulo.toUpperCase();
+            int pos = tit.indexOf(tit1);
+            if(pos != -1){
+                return pos;
+            }
+
         }
         return -1;
-
     }
 
     /**
@@ -89,7 +93,7 @@ public class RevistaOnLineJuegos
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < total;i++){
-        sb.append(juegos[i].toString()).append("\t");}
+            sb.append(juegos[i].toString()).append("\t");}
         return sb.toString();
     }
 
@@ -102,7 +106,7 @@ public class RevistaOnLineJuegos
     public void puntuar(String titulo, int puntuacion) {
         int existe =existeJuego(titulo);
         if(existe != -1){
-        juegos[existe].puntuar(puntuacion);
+            juegos[existe].puntuar(puntuacion);
         }
         else{
             System.out.println("No existe el juego " + titulo);
