@@ -99,10 +99,10 @@ public class Juego {
      * (Ver enunciado)
      */
     public String toString() {
-        return titulo.toUpperCase() + "\nGénero: " + this.genero +
+        return titulo + "\nGénero: " + this.genero +
         "| Lanzamiento: " + this.year +
         "\nValoración (" + getVotos() + " votos): "
-        + String.format("%.2f", this.getValoracionMedia());
+        + String.format("%.2f", this.getValoracionMedia()) + "\n------------------";
 
     }
 

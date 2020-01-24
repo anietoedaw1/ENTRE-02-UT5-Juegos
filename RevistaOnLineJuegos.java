@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Arrays;
 
 /**
  * La clase representa a una tienda on-line en la
@@ -50,25 +51,23 @@ public class RevistaOnLineJuegos
         if(existeJuego(nombreJuego)>= 0){
             System.out.println("Ya esta publicado el juego " + nombreJuego + " en la revista on-line");
         }
-        if(estaCompleta()){
+        else if(estaCompleta()){
             System.out.println("La lista esta llena, no se pueden añadir mas juegos");
-        }    
-        if(total != 0){
-            int anterior = total -1;
-            while(anterior >= 0){
-                if(juegos[anterior].getTitulo().compareToIgnoreCase(nombreJuego) < 0){
-                    juegos[total +1] = juego;
-                    total++;
-                }
-                else{
-                    juegos[anterior +1]= juegos[anterior];
-                }
-                anterior--;
-            }
-        }
+        } 
         else{
-            juegos[0] = juego;    
-            total++;}
+            int p = 0;
+            for(int i = 0; i < total;i++){
+                if(juegos[i].getTitulo().compareToIgnoreCase(nombreJuego) > 0){
+                    p = i;}
+                else{
+                    p= total;}
+            }
+
+            System.arraycopy(juegos, p,juegos,p +1,total -p);
+            juegos[p] = juego;
+            total++;
+        }
+
     }
 
     /**
@@ -77,10 +76,12 @@ public class RevistaOnLineJuegos
      * Si existe el juego devuelve su posición, si no existe devuelve -1
      */
     public int existeJuego(String titulo) {
-
-        for(int i = 0; i < total;i++){
-            if(juegos[i].getTitulo().compareToIgnoreCase(titulo) == 0){
+        int i = 0;
+        while(i < total){
+            int prueba = juegos[i].getTitulo().compareToIgnoreCase(titulo);
+            if(prueba == 0){
                 return i;}
+            i++;
         }
         return -1;
     }
@@ -92,9 +93,9 @@ public class RevistaOnLineJuegos
      * (Ver resultados de ejecución)
      */
     public String toString() {
-        StringBuilder sb = new StringBuilder("Nuestros mejores juegos en la revista " + nombre + " ("+total+" juegos)");
+        StringBuilder sb = new StringBuilder("Nuestros mejores juegos en la revista " + nombre + " ("+total+" juegos)\n");
         for(int i = 0; i < total;i++){
-            sb.append(juegos[i].toString()).append("\n");}
+            sb.append(juegos[i].toString() +"\n");}
         return sb.toString();
     }
 
@@ -121,8 +122,15 @@ public class RevistaOnLineJuegos
      * El array se devuelve todo en mayúsculas y ordenado ascendentemente
      */
     public String[] valoracionMayorQue(double valoracion) {
-
-        return null;
+        String []valoracionMayor = new String[total];
+        int contador = 0;
+        for(int i = 0; i < total;i++){
+            if(juegos[i].getValoracionMedia() > valoracion){
+                valoracionMayor[contador] = juegos[i].getTitulo();
+                contador++;
+            }
+        }
+        return Arrays.copyOf(valoracionMayor,contador);
     }
 
     /**
@@ -130,8 +138,18 @@ public class RevistaOnLineJuegos
      * el nº de juegos borradas
      */
     public int borrarDeGenero(Genero genero) {
+        int contador = 0;
+        for(int i = total -1; i >= 0;i--){
+            if(juegos[i].getGenero() == genero){
+                for(int p = i + 1; p < total;i++){
+                    juegos[i-1]=juegos[i];
+                }
+                total--;
+                contador++;
+            }
 
-        return 0;
+        }
+        return contador;
     }
 
     /**

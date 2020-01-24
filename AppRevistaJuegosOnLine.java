@@ -16,12 +16,14 @@ public class AppRevistaJuegosOnLine
             String nombre = args[0];
             RevistaOnLineJuegos revista = new RevistaOnLineJuegos(nombre,maximo);
             revista.leerDeFichero();
-            revista.toString();
+            System.out.println(revista.toString());
+            System.out.println("*************************************** \nPuntuando...");
             revista.puntuar("Planet Zoo",8);
             revista.puntuar("Steep",7);
             revista.puntuar("Catastronauts",9);
             revista.puntuar("Wattam",9);
-            revista.toString();
+            System.out.println("Despues de puntuar la revista queda\n");
+            System.out.println(revista.toString());
         }
 
     }
