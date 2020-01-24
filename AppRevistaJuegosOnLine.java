@@ -22,8 +22,12 @@ public class AppRevistaJuegosOnLine
             revista.puntuar("Steep",7);
             revista.puntuar("Catastronauts",9);
             revista.puntuar("Wattam",9);
-            System.out.println("Despues de puntuar la revista queda\n");
+            System.out.println("\nDespues de puntuar la revista queda\n");
             System.out.println(revista.toString());
+            System.out.println("*************************************** \nBorrando juegos de genero ROL...");
+            System.out.println("\nBorrados " + revista.borrarDeGenero(Genero.ROL) + " juegos");
+            System.out.println(revista.toString());
+            
         }
 
     }

@@ -141,9 +141,7 @@ public class RevistaOnLineJuegos
         int contador = 0;
         for(int i = total -1; i >= 0;i--){
             if(juegos[i].getGenero() == genero){
-                for(int p = i + 1; p < total;i++){
-                    juegos[i-1]=juegos[i];
-                }
+                System.arraycopy(juegos,i+1,juegos,i,total-i-1);
                 total--;
                 contador++;
             }
