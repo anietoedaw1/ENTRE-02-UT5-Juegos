@@ -31,7 +31,7 @@ public class RevistaOnLineJuegos
      * Devuelve true si el array está completo, false en otro caso
      */
     public boolean estaCompleta() {
-        return total == juegos.length -1;
+        return total == juegos.length;
     }
 
     /**
@@ -47,27 +47,28 @@ public class RevistaOnLineJuegos
      */
     public void add(Juego juego) {
         String nombreJuego = juego.getTitulo();
-        if(existeJuego(nombreJuego)== -1 && !estaCompleta()){
-
-            if(total != 0){
-
-                if(juegos[total-1].getTitulo().compareToIgnoreCase(nombreJuego) < 0){
+        if(existeJuego(nombreJuego)>= 0){
+            System.out.println("Ya esta publicado el juego " + nombreJuego + " en la revista on-line");
+        }
+        if(estaCompleta()){
+            System.out.println("La lista esta llena, no se pueden añadir mas juegos");
+        }    
+        if(total != 0){
+            int anterior = total -1;
+            while(anterior >= 0){
+                if(juegos[anterior].getTitulo().compareToIgnoreCase(nombreJuego) < 0){
+                    juegos[total +1] = juego;
                     total++;
-                    juegos[total] = juego;
                 }
                 else{
-                    total++;
-                    juegos[total] = juegos[total-1];
-                    juegos[total-1] = juego;
+                    juegos[anterior +1]= juegos[anterior];
                 }
+                anterior--;
             }
-            else{
-                juegos[0] = juego;    
-                total++;}
         }
         else{
-            System.out.println("ERROR, EL JUEGO YA EXISTE O LA LISTA YA ESTA COMPLETA");
-        }
+            juegos[0] = juego;    
+            total++;}
     }
 
     /**
