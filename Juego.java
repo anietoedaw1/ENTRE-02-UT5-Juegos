@@ -23,14 +23,9 @@ public class Juego {
         int p = 3;
         for(int i = 0;i < valoraciones.length;i++){
 
-            if(Integer.parseInt(tokens[p]) != 0){
-                valoraciones[i] = Integer.parseInt(tokens[p]);
-                p++;
-            }
-            else{
-                valoraciones[i] = 0;
-                p++;
-            } 
+            valoraciones[i] = Integer.parseInt(tokens[p]);
+            p++;
+
         }
     }
 

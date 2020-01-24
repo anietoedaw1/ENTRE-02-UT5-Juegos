@@ -50,7 +50,8 @@ public class RevistaOnLineJuegos
         if(existeJuego(nombreJuego)== -1 && !estaCompleta()){
 
             if(total != 0){
-                if(juegos[total].getTitulo().compareToIgnoreCase(nombreJuego) < 0){
+
+                if(juegos[total-1].getTitulo().compareToIgnoreCase(nombreJuego) < 0){
                     total++;
                     juegos[total] = juego;
                 }
@@ -63,7 +64,10 @@ public class RevistaOnLineJuegos
             else{
                 juegos[0] = juego;    
                 total++;}
-        }  
+        }
+        else{
+            System.out.println("ERROR, EL JUEGO YA EXISTE O LA LISTA YA ESTA COMPLETA");
+        }
     }
 
     /**
@@ -72,14 +76,10 @@ public class RevistaOnLineJuegos
      * Si existe el juego devuelve su posición, si no existe devuelve -1
      */
     public int existeJuego(String titulo) {
-        for(int i = 0; i <= total;i++){
-            String tit = juegos[i].getTitulo().toUpperCase();
-            String tit1 = titulo.toUpperCase();
-            int pos = tit.indexOf(tit1);
-            if(pos != -1){
-                return pos;
-            }
 
+        for(int i = 0; i < total;i++){
+            if(juegos[i].getTitulo().compareToIgnoreCase(titulo) == 0){
+                return i;}
         }
         return -1;
     }
@@ -91,9 +91,9 @@ public class RevistaOnLineJuegos
      * (Ver resultados de ejecución)
      */
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("Nuestros mejores juegos en la revista " + nombre + " ("+total+" juegos)");
         for(int i = 0; i < total;i++){
-            sb.append(juegos[i].toString()).append("\t");}
+            sb.append(juegos[i].toString()).append("\n");}
         return sb.toString();
     }
 
